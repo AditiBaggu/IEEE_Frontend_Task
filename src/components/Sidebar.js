@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CiHome } from "react-icons/ci";
 import { FaHistory } from "react-icons/fa";
 import { FaRegFlag } from "react-icons/fa6";
@@ -13,12 +13,10 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [selectedItem, setSelectedItem] = useState("Home");
   const open = useSelector((store) => store.app.open);
   const [isMobileView, setIsMobileView] = useState(false);
-
-  console.log(open);
 
   const handleClick = (title) => {
     setSelectedItem(title);
@@ -49,7 +47,10 @@ const Sidebar = () => {
               className={`rounded-lg px-1 w-full flex items-center ${
                 selectedItem === item.title ? "bg-orange-300" : "bg-white"
               }`}
-              onClick={() => handleClick(item.title)}
+              onClick={() => {
+                handleClick(item.title);
+                toggleSidebar(); // Close sidebar on item click
+              }}
             >
               <span>{item.icons}</span>
               <span className={`ml-3 ${open ? "" : "hidden"}`}>

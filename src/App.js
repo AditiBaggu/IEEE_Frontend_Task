@@ -5,6 +5,11 @@ import Sidebar from "./components/Sidebar";
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -12,11 +17,11 @@ const App = () => {
 
   return (
     <div>
-      <Navbar handleSearch={handleSearch} />
+      <Navbar toggleSidebar={toggleSidebar} handleSearch={handleSearch} />
       <div className="flex mt-16">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="ml-5 mr-5">
-          <VideoContainer searchQuery={searchQuery} />{" "}
+          <VideoContainer searchQuery={searchQuery} />
         </div>
       </div>
     </div>
